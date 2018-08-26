@@ -2,21 +2,21 @@
 
 /**
  * Class for mutation operation
- * @package ops
- * @author drixler_angelo
+ * @package operation
+ * @author drixlerangelo
  * @since 25 August 2018
  */
 
 class Mutation {
 
-    private $oConstants;
+    private $oConstant;
 
     /**
      * constructor
-     * @param object oConstants
+     * @param object oConstantClass
      */
-    public function __construct($oConstants) {
-        $this->oConstants = $oConstants;
+    public function __construct($oConstantClass) {
+        $this->oConstant = $oConstantClass;
     }
 
     /**
@@ -25,8 +25,8 @@ class Mutation {
      * @param object oGenome
      */
     public function mutate($oGenome) {
-
-        if (rand() < $this->oConstants->get('weightMutationChance')) {
+        echo random() . "<br>";
+        if (rand() < $this->oConstant->get('weightMutationChance')) {
             $this->mutateSynapseWeight($oGenome);
         }
     }

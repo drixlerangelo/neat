@@ -1,8 +1,9 @@
-<?
+<?php
 
 /**
  * Class for constants
- * @author drixler_angelo
+ * @package configuration
+ * @author drixlerangelo
  * @since 24 August 2018
  */
 class Constant {
@@ -38,7 +39,6 @@ class Constant {
     public function __construct($inputs = 1, $outputs = 1) {
         $this->inputs = $inputs;
         $this->outputs = $outputs;
-        echo 'constants created.<br>';
     }
 
     /**

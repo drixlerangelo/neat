@@ -2,8 +2,8 @@
 
 /**
  * Class for genome
- * @package reps
- * @author drixler_angelo
+ * @package representation
+ * @author drixlerangelo
  * @since 24 August 2018
  */
 class Genome {
@@ -12,14 +12,14 @@ class Genome {
 
     /**
      * constructor
-     * @param object oConstants
-     * @param object oGenomeCounter
+     * @param object oConstantClass
+     * @param object oGenomeCounterClass
      */
-    public function __construct($oConstants, $oGenomeCounter) {
-        $oGenomeCounter->increment();
-        $this->id = $oGenomeCounter->get();
+    public function __construct($oConstantClass, $oGenomeCounterClass) {
+        $oGenomeCounterClass->increment();
+        $this->id = $oGenomeCounterClass->get();
         $this->synapses = array();
-        $this->maxNeuron = $oConstants->get('inputs') + $oConstants->get('outputs');
+        $this->maxNeuron = $oConstantClass->get('inputs') + $oConstantClass->get('outputs');
         $this->fitness = 0.;
         $this->adjFitness = 0.;
     }

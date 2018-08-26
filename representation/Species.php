@@ -2,8 +2,8 @@
 
 /**
  * Class for species
- * @package reps
- * @author drixler_angelo
+ * @package representation
+ * @author drixlerangelo
  * @since 24 August 2018
  */
 class Species {
@@ -14,11 +14,11 @@ class Species {
 
     /**
      * constructor
-     * @param object oSpeciesCounter
+     * @param object oSpeciesCounterClass
      */
-    public function __construct($oSpeciesCounter) {
-        $oSpeciesCounter->increment();
-        $this->id = $oSpeciesCounter->get();
+    public function __construct($oSpeciesCounterClass) {
+        $oSpeciesCounterClass->increment();
+        $this->id = $oSpeciesCounterClass->get();
         $this->popSize = 0;
         $this->genomes = array();
         $this->avgFitness = 0.;

@@ -2,8 +2,8 @@
 
 /**
  * Class for synapse counter
- * @package reps
- * @author drixler_angelo
+ * @package representation
+ * @author drixlerangelo
  * @since 24 August 2018
  */
  class SynapseCounter {
