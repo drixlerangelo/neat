@@ -9,8 +9,8 @@
 class Species {
 
     private $popSize, $genomes, $avgFitness, $id;
-    private $sumAdjFitness;
-    private $extinxtionCounter, $candidateGenome;
+    private $sumAdjustedFitness;
+    private $extinctionCounter, $candidateGenome;
 
     /**
      * constructor
@@ -21,8 +21,8 @@ class Species {
         $this->id = $oSpeciesCounterClass->get();
         $this->popSize = 0;
         $this->genomes = array();
-        $this->avgFitness = 0.;
-        $this->sumAdjustedFitness = 0.;
+        $this->avgFitness = 0.0;
+        $this->sumAdjustedFitness = 0.0;
         $this->extinctionCounter = 0;
         $this->candidateGenome = array();
     }
@@ -32,8 +32,14 @@ class Species {
      * @param string sArgs
      * @return mixed
      */
-    public function get($sArgs) {
-        return $this->{$sArgs};
+    public function __get($sArgs) {
+        if(property_exists($this, $sArgs)) {
+            return $this->{$sArgs};
+        }
+
+        $aDebugTrace = debug_backtrace();
+        printPropertyError($sArgs, $aDebugTrace);
+        return null;
     }
 
     /**
@@ -41,7 +47,12 @@ class Species {
      * @param string sArgs
      * @param mixed mValue
      */
-    public function set($sArgs, $mValue) {
-        $this->{$sArgs} = $mValue;
+    public function __set($sArgs, $mValue) {
+        if(property_exists($this, $sArgs)) {
+            $this->{$sArgs} = $mValue;
+        } else {
+            $aDebugTrace = debug_backtrace();
+            printPropertyError($sArgs, $aDebugTrace);
+        }
     }
 }

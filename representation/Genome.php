@@ -7,6 +7,7 @@
  * @since 24 August 2018
  */
 class Genome {
+    
     private $synapses, $maxNeuron, $id;
     private $fitness, $adjFitness;
 
@@ -19,7 +20,7 @@ class Genome {
         $oGenomeCounterClass->increment();
         $this->id = $oGenomeCounterClass->get();
         $this->synapses = array();
-        $this->maxNeuron = $oConstantClass->get('inputs') + $oConstantClass->get('outputs');
+        $this->maxNeuron = $oConstantClass->inputs + $oConstantClass->outputs;
         $this->fitness = 0.;
         $this->adjFitness = 0.;
     }
@@ -29,8 +30,14 @@ class Genome {
      * @param string sArgs
      * @return mixed
      */
-    public function get($sArgs) {
-        return $this->{$sArgs};
+    public function __get($sArgs) {
+        if(property_exists($this, $sArgs)) {
+            return $this->{$sArgs};
+        }
+
+        $aDebugTrace = debug_backtrace();
+        printPropertyError($sArgs, $aDebugTrace);
+        return null;
     }
 
     /**
@@ -38,8 +45,13 @@ class Genome {
      * @param string sArgs
      * @param mixed mValue
      */
-    public function set($sArgs, $mValue) {
-        $this->{$sArgs} = $mValue;
+    public function __set($sArgs, $mValue) {
+        if(property_exists($this, $sArgs)) {
+            $this->{$sArgs} = $mValue;
+        } else {
+            $aDebugTrace = debug_backtrace();
+            printPropertyError($sArgs, $aDebugTrace);
+        }
     }
 
     /**
@@ -49,11 +61,11 @@ class Genome {
     public function copy() {
         $oNewGenome = new Genome();
         
-        $oNewGenome->set('id', $this->get('id'));
-        $oNewGenome->set('synapses', $this->get('synapses'));
-        $oNewGenome->set('maxNeuron', $this->get('maxNeuron'));
-        $oNewGenome->set('fitness', $this->get('fitness'));
-        $oNewGenome->set('adjFitness', $this->get('adjFitness'));
+        $oNewGenome->id = $this->id;
+        $oNewGenome->synapses = $this->synapses;
+        $oNewGenome->maxNeuron = $this->maxNeuron;
+        $oNewGenome->fitness = $this->fitness;
+        $oNewGenome->adjFitness = $this->adjFitness;
 
         return $oNewSynapse;
     }

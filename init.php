@@ -1,6 +1,15 @@
 <?php
 
+/**
+ * Sets up the root directory, helper file and the 
+ * classes at initialization
+ * @author drixlerangelo
+ * @since 26 August 2018
+ */
+
 define('__ROOT__', dirname(__FILE__));
+
+include_once __ROOT__ . '\\configuration\\Helper.php';
 
 spl_autoload_register('autoloader');
 

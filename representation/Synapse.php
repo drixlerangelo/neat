@@ -13,23 +13,15 @@ class Synapse {
 
     /**
      * constructor
+     * @param object oSynapseCounterClass
      */
-    public function __construct() {
-        $this->histMark = 0;
-        $this->from = 0.;
-        $this->to = 0.;
-        $this->weight = 0.;
+    public function __construct($oSynapseCounterClass) {
+        $oSynapseCounterClass->increment();
+        $this->histMark = $oSynapseCounterClass->get();
+        $this->from = 0;
+        $this->to = 0;
+        $this->weight = 0.0;
         $this->enabled = true;
-    }
-
-    /**
-     * creates a new historical marking for
-     * the synapse
-     * @param object oSynapseCounter
-     */
-    public function new($oSynapseCounter) {
-        $oSynapseCounter->increment();
-        $this->histMark = $oSynapseCounter->get();
     }
 
     /**
@@ -37,8 +29,14 @@ class Synapse {
      * @param string sArgs
      * @return mixed
      */
-    public function get($sArgs) {
-        return $this->{$sArgs};
+    public function __get($sArgs) {
+        if(property_exists($this, $sArgs)) {
+            return $this->{$sArgs};
+        }
+
+        $aDebugTrace = debug_backtrace();
+        printPropertyError($sArgs, $aDebugTrace);
+        return null;
     }
 
     /**
@@ -46,8 +44,13 @@ class Synapse {
      * @param string sArgs
      * @param mixed mValue
      */
-    public function set($sArgs, $mValue) {
-        $this->{$sArgs} = $mValue;
+    public function __set($sArgs, $mValue) {
+        if(property_exists($this, $sArgs)) {
+            $this->{$sArgs} = $mValue;
+        } else {
+            $aDebugTrace = debug_backtrace();
+            printPropertyError($sArgs, $aDebugTrace);
+        }
     }
 
     /**
@@ -57,10 +60,10 @@ class Synapse {
     public function copy() {
         $oNewSynapse = new Synapse();
         
-        $oNewSynapse->set('from', $this->get('from'));
-        $oNewSynapse->set('to', $this->get('to'));
-        $oNewSynapse->set('weight', $this->get('weight'));
-        $oNewSynapse->set('enabled', $this->get('enabled'));
+        $oNewSynapse->from = $this->from;
+        $oNewSynapse->to = $this->to;
+        $oNewSynapse->weight = $this->weight;
+        $oNewSynapse->enabled = $this->enabled;
 
         return $oNewSynapse;
     }

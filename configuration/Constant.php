@@ -7,6 +7,7 @@
  * @since 24 August 2018
  */
 class Constant {
+    
     private $inputs;
     private $outputs;
     
@@ -33,21 +34,28 @@ class Constant {
 
     /**
      * constructor
-     * @param int inputs
-     * @param int outputs
+     * @param object oModelClass
      */
-    public function __construct($inputs = 1, $outputs = 1) {
-        $this->inputs = $inputs;
-        $this->outputs = $outputs;
+    public function __construct($oModelClass) {
+        $this->inputs = $oModelClass->iInputs;
+        $this->outputs = $oModelClass->iOutputs;
     }
 
     /**
      * get method
      * @param string sArgs
-     * @return mixed
+     * @return mixed on success
+     * @return null on failure
      */
-    public function get($sArgs) {
-        return $this->{$sArgs};
+    public function __get($sArgs) {
+        if(property_exists($this, $sArgs)) {
+            return $this->{$sArgs};
+        }
+        
+        $aTrace = debug_backtrace();
+        printPropertyError($sArgs, $aTrace);
+
+        return null;
     }
 
     /**
@@ -55,7 +63,12 @@ class Constant {
      * @param string sArgs
      * @param mixed mValue 
      */
-    public function set($sArgs, $mValue) {
-        $this->{$sArgs} = $mValue;
+    public function __set($sArgs, $mValue) {
+        if(property_exists($this, $sArgs)) {
+            $this->{$sArgs} = $mValue;
+        }
+        
+        $aTrace = debug_backtrace();
+        printPropertyError($sArgs, $aTrace);
     }
 }
