@@ -9,7 +9,7 @@
 class Synapse {
 
     private $histMark, $from, $to;
-    private $weight, $enabled;
+    private $weight, $enabled, $lit;
 
     /**
      * constructor
@@ -22,6 +22,7 @@ class Synapse {
         $this->to = 0;
         $this->weight = 0.0;
         $this->enabled = true;
+        $this->lit = false;
     }
 
     /**

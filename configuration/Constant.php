@@ -23,13 +23,11 @@ class Constant {
     private $reproduceAsexuallyChance = 0.25;
     private $extinctionCoverage = 0.4;
     private $extinctionMarker = 3;
-
     private $compatC1 = 1;
     private $compatC2 = 1;
     private $compatC3 = 0.4;
     private $smallGenomeThres = 20;
     private $compatThreshold = 2.5;
-
     private $fitnessWeight = 3;
 
     /**
@@ -37,15 +35,14 @@ class Constant {
      * @param object oModelClass
      */
     public function __construct($oModelClass) {
-        $this->inputs = $oModelClass->iInputs;
-        $this->outputs = $oModelClass->iOutputs;
+        $this->inputs = $oModelClass->inputs;
+        $this->outputs = $oModelClass->outputs;
     }
 
     /**
      * get method
      * @param string sArgs
-     * @return mixed on success
-     * @return null on failure
+     * @return mixed
      */
     public function __get($sArgs) {
         if(property_exists($this, $sArgs)) {

@@ -9,10 +9,10 @@
  */
 abstract class Model {
 
-    protected $iGeneration;
-    protected $aSpecies;
-    protected $iInputs;
-    protected $iOutputs;
+    private $generation;
+    private $species;
+    private $inputs;
+    private $outputs;
 
     /**
      * constructor
@@ -20,10 +20,10 @@ abstract class Model {
      * @param int iOutputSize
      */
     public function __construct($iInputSize, $iOutputSize) {
-        $this->iInputs = $iInputSize;
-        $this->iOutputs = $iOutputSize;
-        $this->iGeneration = 0;
-        $this->aSpecies = array();
+        $this->inputs = $iInputSize;
+        $this->outputs = $iOutputSize;
+        $this->generation = 0;
+        $this->species = array();
     }
 
     /**

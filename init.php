@@ -10,6 +10,7 @@
 define('__ROOT__', dirname(__FILE__));
 
 include_once __ROOT__ . '\\configuration\\Helper.php';
+include_once __ROOT__ . '\\configuration\\Utility.php';
 
 spl_autoload_register('autoloader');
 

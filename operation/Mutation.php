@@ -54,7 +54,9 @@ class Mutation {
      * @param object oGenome
      */
     public function mutateAddSynapse($oGenome) {
-        $aNeurons = $this->generateNeurons($oGenome->synapses);
+        $iInputSize = $this->oConstant->inputs;
+        $iOutputSize = $this->oConstant->outputs;
+        $aNeurons = generateNeurons($oGenome->synapses, $iInputSize, $iOutputSize);
         $fromNode = $this->getRandomNeuron($aNeurons, true, 0);
         $toNode = $this->getRandomNeuron($aNeurons, false, $fromNode);
 
@@ -73,40 +75,6 @@ class Mutation {
      */
     public function mutateAddNode($oGenome) {
         
-    }
-
-    /**
-     * Gets the neurons with their identification
-     * @param array aSynapses
-     * @return array aNeurons
-     */
-    private function generateNeurons($aSynapses) {
-        $aNeurons = array();
-        $iNeuronCounter = 0;
-
-        for($iCounter = 0; $iCounter < $this->oConstant->inputs; $iCounter++) {
-            array_push($aNeurons, $iNeuronCounter);
-            $iNeuronCounter ++;
-        }
-
-        for($iCounter = 0; $iCounter < $this->oConstant->outputs; $iCounter++) {
-            array_push($aNeurons, $iNeuronCounter);
-            $iNeuronCounter ++;
-        }
-
-        for($iCounter = 0; $iCounter < count($aSynapses); $iCounter++) {
-            $oSynapse = $aSynapses[$iCounter];
-            
-            if($oSynapse->from > ($this->oConstant->inputs + $this->oConstant->outputs)) {
-                array_push($aNeurons, $oSynapse->from);
-            }
-            
-            if($oSynapse->to > ($this->oConstant->inputs + $this->oConstant->outputs)) {
-                array_push($aNeurons, $oSynapse->to);
-            }
-        }
-
-        return $aNeurons;
     }
 
     /**
