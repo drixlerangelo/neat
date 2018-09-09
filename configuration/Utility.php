@@ -14,17 +14,19 @@
  * it is called every generation
  * @param object $oModelClass
  */
- function simulateEvolution($oModelClass) {
+function simulateEvolution($oModelClass) {
     echo $oModelClass->generation."<br>";
     
-    $iNoOfSpecies = count($oModelClass->species);
-    for($iSpecies = 0; $iSpecies < $iNoOfSpecies; $iSpecies++) {
-
+    foreach ($oModelClass->species as $iCounter => $oSpecies) {
+        calculateDeepFitness($oSpecies, $oModelClass);
     }
 }
 
-function calculateDeepFitness($iSpeciesIndex, $oModelClass) {
-
+function calculateDeepFitness($oSpecies, $oModelClass) {
+    foreach ($oSpecies->genomes as $iCounter => $oGenome) {
+        $oGenome->fitness = $oModelClass->calculateFitness($oGenome);
+        echo $oGenome->fitness;
+    }
 }
 
 /**

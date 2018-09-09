@@ -1,13 +1,13 @@
 <?php
 
 /**
- * Abstract class for making models
+ * Abstract for making models
  * using NEAT
  * @package application
  * @author drixlerangelo
  * @since 27 August 2018
  */
-abstract class Model {
+abstract class ModelAbstract implements ModelInterface {
 
     private $generation;
     private $species;

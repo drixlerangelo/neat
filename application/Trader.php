@@ -8,6 +8,15 @@
  * @author drixlerangelo
  * @since 27 August 2018
  */
-class Trader extends Model {
-    // to implement    
+class Trader extends ModelAbstract {
+    
+    /**
+     * Implements calculateFitness()
+     * from ModelInterface
+     * @param object $oGenome
+     */
+    public function calculateFitness(Genome $oGenome) {
+        // TODO
+        return "<br>To implement<br>";
+    }
 }
